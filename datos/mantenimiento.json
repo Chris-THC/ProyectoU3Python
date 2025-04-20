@@ -1,0 +1,17 @@
+{
+    "equipos": [],
+    "tecnicos": [],
+    "tareas": [],
+    "ubicaciones": [
+        {
+            "id": "1",
+            "nombre": "Taller de Mantenimiento",
+            "descripcion": "Espacio destinado para la reparaci\u00f3n de equipos, almacenamiento de herramientas y ejecuci\u00f3n de mantenimientos correctivos."
+        },
+        {
+            "id": "2",
+            "nombre": "Subestaci\u00f3n El\u00e9ctrica",
+            "descripcion": "\u00c1rea cr\u00edtica para el suministro de energ\u00eda, incluye transformadores y tableros que deben inspeccionarse peri\u00f3dicamente."
+        }
+    ]
+}
