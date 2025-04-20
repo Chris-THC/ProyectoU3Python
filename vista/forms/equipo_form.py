@@ -1,6 +1,6 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
 from datetime import datetime
+from tkinter import ttk, messagebox
 from typing import Callable
 
 
@@ -59,12 +59,36 @@ class EquipoForm:
         # Configurar expansión
         frame.columnconfigure(1, weight=1)
 
-
     def _cargar_ubicaciones(self):
         ubicaciones = [(u.id, u.nombre) for u in self.gestor.sistema.ubicaciones]
-        self.ubicacion_combobox['values'] = [f"{nombre}" for id, nombre in ubicaciones]
-        if ubicaciones:
+        if not ubicaciones:
+            # Deshabilitar el formulario y mostrar mensaje
+            self.ubicacion_combobox['values'] = ["⚠️ Registre una ubicación primero"]
+            self.ubicacion_combobox.set("⚠️ Registre una ubicación primero")
+            self.ubicacion_combobox['state'] = 'disabled'
+
+            # Bloquear botón de guardado
+            self.btn_guardar['state'] = 'disabled'
+
+            # Añadir botón para redirigir a registro de ubicación
+            btn_redirigir = ttk.Button(
+                self.window,
+                text="Ir a Registrar Ubicación",
+                command=self._abrir_form_ubicacion
+            )
+            btn_redirigir.pack(pady=10)
+        else:
+            self.ubicacion_combobox['values'] = [f"{id} - {nombre}" for id, nombre in ubicaciones]
             self.ubicacion_combobox.current(0)
+
+    def _abrir_form_ubicacion(self):
+        from .ubicacion_form import UbicacionForm  # Importación local para evitar circular
+        UbicacionForm(self.window, self.gestor, self._actualizar_combobox)
+
+    def _actualizar_combobox(self):
+        self._cargar_ubicaciones()
+        if self.gestor.sistema.ubicaciones:
+            self.btn_guardar['state'] = 'normal'
 
     def _guardar(self):
         try:

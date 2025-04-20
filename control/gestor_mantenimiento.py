@@ -79,6 +79,13 @@ class GestorMantenimiento:
     def obtener_tareas_por_tecnico(self, tecnico_id: str) -> List[TareaMantenimiento]:
         return [t for t in self.sistema.tareas if t.tecnico_asignado.id == tecnico_id]
 
+    def registrar_ubicacion(self, id: str, nombre: str, descripcion: str = "") -> Ubicacion:
+        if not id or not nombre:
+            raise ValueError("ID y nombre son obligatorios")
+        ubicacion = Ubicacion(id=id, nombre=nombre, descripcion=descripcion)
+        self.sistema.agregar_ubicacion(ubicacion)
+        return ubicacion
+
     def verificar_alertas_mantenimiento(self) -> List[Equipo]:
         alertas = []
         hoy = datetime.now()

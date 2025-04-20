@@ -1,7 +1,57 @@
 {
-    "equipos": [],
-    "tecnicos": [],
-    "tareas": [],
+    "equipos": [
+        {
+            "id": "01",
+            "nombre": "skjsjsks",
+            "fecha_instalacion": "2025-04-20T00:00:00",
+            "horas_uso": 0,
+            "horas_mantenimiento": 100,
+            "ubicacion_id": "1"
+        }
+    ],
+    "tecnicos": [
+        {
+            "id": "001",
+            "nombre": "Un weon",
+            "especialidad": "Sistemas",
+            "activo": true
+        }
+    ],
+    "tareas": [
+        {
+            "id": "TAR-1745170810.758983",
+            "tipo": "CORRECTIVO",
+            "fecha_programada": "2025-04-20T11:40:10.758983",
+            "estado": "COMPLETADA",
+            "observaciones": "akjksjkjskjsksj",
+            "fecha_realizacion": "2025-04-20T11:40:10.758983",
+            "duracion_minutos": null,
+            "equipo_id": "01",
+            "tecnico_id": "001"
+        },
+        {
+            "id": "TAR-1745170826.11798",
+            "tipo": "PREVENTIVO",
+            "fecha_programada": "2025-04-19T00:00:00",
+            "estado": "PENDIENTE",
+            "observaciones": "",
+            "fecha_realizacion": null,
+            "duracion_minutos": null,
+            "equipo_id": "01",
+            "tecnico_id": "001"
+        },
+        {
+            "id": "TAR-1745170982.289093",
+            "tipo": "PREVENTIVO",
+            "fecha_programada": "2025-04-27T00:00:00",
+            "estado": "PENDIENTE",
+            "observaciones": "",
+            "fecha_realizacion": null,
+            "duracion_minutos": null,
+            "equipo_id": "01",
+            "tecnico_id": "001"
+        }
+    ],
     "ubicaciones": [
         {
             "id": "1",
@@ -12,6 +62,11 @@
             "id": "2",
             "nombre": "Subestaci\u00f3n El\u00e9ctrica",
             "descripcion": "\u00c1rea cr\u00edtica para el suministro de energ\u00eda, incluye transformadores y tableros que deben inspeccionarse peri\u00f3dicamente."
+        },
+        {
+            "id": "03",
+            "nombre": "Alacen de Herramientas",
+            "descripcion": "Se enecuntra en el almacen"
         }
     ]
 }

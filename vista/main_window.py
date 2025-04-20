@@ -6,6 +6,7 @@ from control.reportes import GeneradorReportes
 from vista.forms.equipo_form import EquipoForm
 from vista.forms.tarea_form import TareaForm
 from vista.forms.tecnico_form import TecnicoForm
+from vista.forms.ubicacion_form import UbicacionForm
 from vista.reportes_view import ReportesView
 
 
@@ -19,6 +20,7 @@ class MainWindow:
         self.root.geometry("1000x600")
 
         self._crear_menu()
+        self._crear_boton_ubicacion()
         self._crear_interfaz()
 
         self.actualizar_listados()
@@ -124,6 +126,20 @@ class MainWindow:
         for equipo in alertas:
             self.lista_alertas.insert(tk.END, f"{equipo.nombre} necesita mantenimiento")
 
+    def _crear_boton_ubicacion(self):
+        # Frame para el botón en la parte superior
+        self.frame_botones = ttk.Frame(self.root)
+        self.frame_botones.pack(fill=tk.X, padx=5, pady=5)
+
+        # Botón destacado para ubicaciones
+        btn_ubicacion = ttk.Button(
+            self.frame_botones,
+            text="➕ Registrar Ubicación",
+            command=self.abrir_form_ubicacion,
+            style='Accent.TButton'  # Estilo destacado (requiere tema 'azure' o similar)
+        )
+        btn_ubicacion.pack(side=tk.LEFT, padx=5)
+
     def abrir_form_equipo(self):
         EquipoForm(self.root, self.gestor, self.actualizar_listados)
 
@@ -135,6 +151,10 @@ class MainWindow:
 
     def mostrar_reportes(self):
         ReportesView(self.root, self.generador_reportes)
+
+    def abrir_form_ubicacion(self):
+        # Método para abrir el formulario de ubicación
+        UbicacionForm(self.root, self.gestor, self.actualizar_listados)
 
     def ejecutar(self):
         self.root.mainloop()
