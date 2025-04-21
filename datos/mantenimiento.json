@@ -15,6 +15,14 @@
             "horas_uso": 12,
             "horas_mantenimiento": 100,
             "ubicacion_id": "2"
+        },
+        {
+            "id": "003",
+            "nombre": "Herramienta 2",
+            "fecha_instalacion": "2025-04-21T00:00:00",
+            "horas_uso": 200,
+            "horas_mantenimiento": 100,
+            "ubicacion_id": "003"
         }
     ],
     "tecnicos": [
@@ -53,6 +61,17 @@
             "duracion_minutos": null,
             "equipo_id": "002",
             "tecnico_id": "002"
+        },
+        {
+            "id": "TAR-1745200885.713917",
+            "tipo": "PREVENTIVO",
+            "fecha_programada": "2025-04-21T00:00:00",
+            "estado": "PENDIENTE",
+            "observaciones": "",
+            "fecha_realizacion": null,
+            "duracion_minutos": null,
+            "equipo_id": "003",
+            "tecnico_id": "002"
         }
     ],
     "ubicaciones": [
@@ -70,6 +89,11 @@
             "id": "03",
             "nombre": "Alacen de Herramientas",
             "descripcion": "Se enecuntra en el almacen"
+        },
+        {
+            "id": "003",
+            "nombre": "Taller de reparacion",
+            "descripcion": "Es solo un taller"
         }
     ]
 }
