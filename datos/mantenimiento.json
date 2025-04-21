@@ -1,7 +1,7 @@
 {
     "equipos": [
         {
-            "id": "01",
+            "_id": "01",
             "nombre": "Test1",
             "fecha_instalacion": "2025-04-20T00:00:00",
             "horas_uso": 100,
@@ -9,7 +9,7 @@
             "ubicacion_id": "1"
         },
         {
-            "id": "002",
+            "_id": "002",
             "nombre": "Una herramienta",
             "fecha_instalacion": "2025-04-20T00:00:00",
             "horas_uso": 12,
@@ -17,7 +17,7 @@
             "ubicacion_id": "2"
         },
         {
-            "id": "003",
+            "_id": "003",
             "nombre": "Herramienta 2",
             "fecha_instalacion": "2025-04-21T00:00:00",
             "horas_uso": 200,
@@ -27,13 +27,13 @@
     ],
     "tecnicos": [
         {
-            "id": "01",
+            "_id": "01",
             "nombre": "Jose",
             "especialidad": "Sistemas",
             "activo": true
         },
         {
-            "id": "002",
+            "_id": "002",
             "nombre": "Jose",
             "especialidad": "Sistemas",
             "activo": true
@@ -71,6 +71,17 @@
             "fecha_realizacion": null,
             "duracion_minutos": null,
             "equipo_id": "003",
+            "tecnico_id": "002"
+        },
+        {
+            "id": "TAR-1745201558.550244",
+            "tipo": "CORRECTIVO",
+            "fecha_programada": "2025-04-20T20:12:38.550244",
+            "estado": "COMPLETADA",
+            "observaciones": "una webada mas",
+            "fecha_realizacion": "2025-04-20T20:12:38.550244",
+            "duracion_minutos": null,
+            "equipo_id": "01",
             "tecnico_id": "002"
         }
     ],
