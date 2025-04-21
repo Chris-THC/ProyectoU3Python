@@ -26,33 +26,66 @@ class PersistenciaJSON:
         if not self.archivo.exists():
             return SistemaMantenimiento()
 
-        with open(self.archivo, 'r') as f:
-            datos = json.load(f)
+        try:
+            with open(self.archivo, 'r') as f:
+                datos = json.load(f)
+        except json.JSONDecodeError:
+            return SistemaMantenimiento()
 
         sistema = SistemaMantenimiento()
 
-        # Reconstruir objetos desde el JSON
-        ubicaciones = {u['id']: Ubicacion(**u) for u in datos['ubicaciones']}
+        # 1. Cargar ubicaciones
+        ubicaciones = {u['id']: Ubicacion(**u) for u in datos.get('ubicaciones', [])}
+        for ub in ubicaciones.values():
+            sistema.agregar_ubicacion(ub)
 
-        for eq in datos['equipos']:
-            eq['ubicacion'] = ubicaciones[eq['ubicacion_id']]
-            sistema.agregar_equipo(Equipo(**eq))
+        # 2. Cargar equipos
+        equipos = {}
+        for eq in datos.get('equipos', []):
+            try:
+                eq_data = eq.copy()
+                eq_data['ubicacion'] = ubicaciones[eq_data['ubicacion_id']]
+                del eq_data['ubicacion_id']
 
-        for tec in datos['tecnicos']:
-            sistema.agregar_tecnico(Tecnico(**tec))
+                # Convertir string a datetime
+                eq_data['fecha_instalacion'] = datetime.fromisoformat(eq_data['fecha_instalacion'])
 
-        for ta in datos['tareas']:
-            ta['tipo'] = TipoMantenimiento[ta['tipo']]
-            ta['estado'] = EstadoTarea[ta['estado']]
-            ta['equipo'] = next(e for e in sistema.equipos if e.id == ta['equipo_id'])
-            ta['tecnico_asignado'] = next(t for t in sistema.tecnicos if t.id == ta['tecnico_id'])
-            if ta['fecha_realizacion']:
-                ta['fecha_realizacion'] = datetime.fromisoformat(ta['fecha_realizacion'])
-            ta['fecha_programada'] = datetime.fromisoformat(ta['fecha_programada'])
-            sistema.agregar_tarea(TareaMantenimiento(**ta))
+                equipo = Equipo(**eq_data)
+                equipos[equipo.id] = equipo
+                sistema.agregar_equipo(equipo)
+            except KeyError as e:
+                print(f"Error cargando equipo {eq.get('id')}: {str(e)}")
+            except ValueError as e:
+                print(f"Error en formato de fecha para equipo {eq.get('id')}: {str(e)}")
 
-        for ub in datos['ubicaciones']:
-            sistema.agregar_ubicacion(Ubicacion(**ub))
+        # 3. Cargar técnicos
+        tecnicos = {t['id']: Tecnico(**t) for t in datos.get('tecnicos', [])}
+        for tec in tecnicos.values():
+            sistema.agregar_tecnico(tec)
+
+        # 4. Cargar tareas (¡esta es la parte crítica!)
+        for ta in datos.get('tareas', []):
+            try:
+                ta_data = ta.copy()
+
+                # Convertir IDs a objetos
+                ta_data['equipo'] = equipos[ta_data['equipo_id']]
+                ta_data['tecnico_asignado'] = tecnicos[ta_data['tecnico_id']]
+                del ta_data['equipo_id']
+                del ta_data['tecnico_id']
+
+                # Convertir enums
+                ta_data['tipo'] = TipoMantenimiento[ta_data['tipo']]
+                ta_data['estado'] = EstadoTarea[ta_data['estado']]
+
+                # Convertir fechas
+                if ta_data['fecha_realizacion']:
+                    ta_data['fecha_realizacion'] = datetime.fromisoformat(ta_data['fecha_realizacion'])
+                ta_data['fecha_programada'] = datetime.fromisoformat(ta_data['fecha_programada'])
+
+                sistema.agregar_tarea(TareaMantenimiento(**ta_data))
+            except Exception as e:
+                print(f"Error cargando tarea {ta.get('id')}: {str(e)}")
 
         return sistema
 

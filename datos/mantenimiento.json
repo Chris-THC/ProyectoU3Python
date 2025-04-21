@@ -2,46 +2,38 @@
     "equipos": [
         {
             "id": "01",
-            "nombre": "skjsjsks",
+            "nombre": "Test1",
             "fecha_instalacion": "2025-04-20T00:00:00",
-            "horas_uso": 0,
+            "horas_uso": 100,
             "horas_mantenimiento": 100,
             "ubicacion_id": "1"
+        },
+        {
+            "id": "002",
+            "nombre": "Una herramienta",
+            "fecha_instalacion": "2025-04-20T00:00:00",
+            "horas_uso": 12,
+            "horas_mantenimiento": 100,
+            "ubicacion_id": "2"
         }
     ],
     "tecnicos": [
         {
-            "id": "001",
-            "nombre": "Un weon",
+            "id": "01",
+            "nombre": "Jose",
+            "especialidad": "Sistemas",
+            "activo": true
+        },
+        {
+            "id": "002",
+            "nombre": "Jose",
             "especialidad": "Sistemas",
             "activo": true
         }
     ],
     "tareas": [
         {
-            "id": "TAR-1745170810.758983",
-            "tipo": "CORRECTIVO",
-            "fecha_programada": "2025-04-20T11:40:10.758983",
-            "estado": "COMPLETADA",
-            "observaciones": "akjksjkjskjsksj",
-            "fecha_realizacion": "2025-04-20T11:40:10.758983",
-            "duracion_minutos": null,
-            "equipo_id": "01",
-            "tecnico_id": "001"
-        },
-        {
-            "id": "TAR-1745170826.11798",
-            "tipo": "PREVENTIVO",
-            "fecha_programada": "2025-04-19T00:00:00",
-            "estado": "PENDIENTE",
-            "observaciones": "",
-            "fecha_realizacion": null,
-            "duracion_minutos": null,
-            "equipo_id": "01",
-            "tecnico_id": "001"
-        },
-        {
-            "id": "TAR-1745170982.289093",
+            "id": "TAR-1745195425.809315",
             "tipo": "PREVENTIVO",
             "fecha_programada": "2025-04-27T00:00:00",
             "estado": "PENDIENTE",
@@ -49,7 +41,18 @@
             "fecha_realizacion": null,
             "duracion_minutos": null,
             "equipo_id": "01",
-            "tecnico_id": "001"
+            "tecnico_id": "002"
+        },
+        {
+            "id": "TAR-1745195447.348952",
+            "tipo": "CORRECTIVO",
+            "fecha_programada": "2025-04-20T18:30:47.348952",
+            "estado": "COMPLETADA",
+            "observaciones": "Unas webadas mas",
+            "fecha_realizacion": "2025-04-20T18:30:47.348952",
+            "duracion_minutos": null,
+            "equipo_id": "002",
+            "tecnico_id": "002"
         }
     ],
     "ubicaciones": [
