@@ -44,6 +44,7 @@ class PersistenciaJSON:
         for eq in datos.get('equipos', []):
             try:
                 eq_data = eq.copy()
+                eq_data['id'] = eq_data.pop('_id')  # Convertir _id a id
                 eq_data['ubicacion'] = ubicaciones[eq_data['ubicacion_id']]
                 del eq_data['ubicacion_id']
 
@@ -59,9 +60,17 @@ class PersistenciaJSON:
                 print(f"Error en formato de fecha para equipo {eq.get('id')}: {str(e)}")
 
         # 3. Cargar técnicos
-        tecnicos = {t['id']: Tecnico(**t) for t in datos.get('tecnicos', [])}
-        for tec in tecnicos.values():
-            sistema.agregar_tecnico(tec)
+        tecnicos = {}
+        for tec in datos.get('tecnicos', []):
+            try:
+                tec_data = tec.copy()
+                tec_data['id'] = tec_data.pop('_id')  # Convertir _id a id
+
+                tecnico = Tecnico(**tec_data)
+                tecnicos[tecnico.id] = tecnico
+                sistema.agregar_tecnico(tecnico)
+            except KeyError as e:
+                print(f"Error cargando técnico {tec.get('id')}: {str(e)}")
 
         # 4. Cargar tareas (¡esta es la parte crítica!)
         for ta in datos.get('tareas', []):
@@ -96,12 +105,15 @@ class PersistenciaJSON:
 
     def _equipo_a_dict(self, equipo: Equipo) -> dict:
         d = equipo.__dict__.copy()
+        d['id'] = d.pop('_id')  # Cambiar _id a id
         d['ubicacion_id'] = d['ubicacion'].id
         del d['ubicacion']
         return d
 
     def _tecnico_a_dict(self, tecnico: Tecnico) -> dict:
-        return tecnico.__dict__.copy()
+        d = tecnico.__dict__.copy()
+        d['id'] = d.pop('_id')  # Cambiar _id a id
+        return d
 
     def _tarea_a_dict(self, tarea: TareaMantenimiento) -> dict:
         d = tarea.__dict__.copy()

@@ -1,42 +1,42 @@
 {
     "equipos": [
         {
-            "_id": "01",
             "nombre": "Test1",
             "fecha_instalacion": "2025-04-20T00:00:00",
             "horas_uso": 100,
             "horas_mantenimiento": 100,
+            "id": "01",
             "ubicacion_id": "1"
         },
         {
-            "_id": "002",
             "nombre": "Una herramienta",
             "fecha_instalacion": "2025-04-20T00:00:00",
             "horas_uso": 12,
             "horas_mantenimiento": 100,
+            "id": "002",
             "ubicacion_id": "2"
         },
         {
-            "_id": "003",
             "nombre": "Herramienta 2",
             "fecha_instalacion": "2025-04-21T00:00:00",
             "horas_uso": 200,
             "horas_mantenimiento": 100,
+            "id": "003",
             "ubicacion_id": "003"
         }
     ],
     "tecnicos": [
         {
-            "_id": "01",
             "nombre": "Jose",
             "especialidad": "Sistemas",
-            "activo": true
+            "activo": true,
+            "id": "01"
         },
         {
-            "_id": "002",
             "nombre": "Jose",
             "especialidad": "Sistemas",
-            "activo": true
+            "activo": true,
+            "id": "002"
         }
     ],
     "tareas": [
