@@ -44,7 +44,6 @@ class PersistenciaJSON:
         for eq in datos.get('equipos', []):
             try:
                 eq_data = eq.copy()
-                eq_data['id'] = eq_data.pop('_id')  # Convertir _id a id
                 eq_data['ubicacion'] = ubicaciones[eq_data['ubicacion_id']]
                 del eq_data['ubicacion_id']
 
@@ -63,16 +62,13 @@ class PersistenciaJSON:
         tecnicos = {}
         for tec in datos.get('tecnicos', []):
             try:
-                tec_data = tec.copy()
-                tec_data['id'] = tec_data.pop('_id')  # Convertir _id a id
-
-                tecnico = Tecnico(**tec_data)
+                tecnico = Tecnico(**tec)
                 tecnicos[tecnico.id] = tecnico
                 sistema.agregar_tecnico(tecnico)
             except KeyError as e:
                 print(f"Error cargando técnico {tec.get('id')}: {str(e)}")
 
-        # 4. Cargar tareas (¡esta es la parte crítica!)
+        # 4. Cargar tareas
         for ta in datos.get('tareas', []):
             try:
                 ta_data = ta.copy()
