@@ -1,0 +1,127 @@
+{
+    "equipos": [
+        {
+            "nombre": "Compresor de Aire",
+            "fecha_instalacion": "2023-02-15T00:00:00",
+            "horas_uso": 1200,
+            "horas_mantenimiento": 100,
+            "id": "C01",
+            "ubicacion_id": "1"
+        },
+        {
+            "nombre": "Torno CNC",
+            "fecha_instalacion": "2024-06-10T00:00:00",
+            "horas_uso": 850,
+            "horas_mantenimiento": 50,
+            "id": "T01",
+            "ubicacion_id": "2"
+        },
+        {
+            "nombre": "Caldera Industrial",
+            "fecha_instalacion": "2022-11-01T00:00:00",
+            "horas_uso": 5000,
+            "horas_mantenimiento": 600,
+            "id": "CA01",
+            "ubicacion_id": "3"
+        },
+        {
+            "nombre": "Sistema de Bombeo",
+            "fecha_instalacion": "2025-01-20T00:00:00",
+            "horas_uso": 300,
+            "horas_mantenimiento": 20,
+            "id": "SB01",
+            "ubicacion_id": "4"
+        },
+        {
+            "nombre": "Herramienta1",
+            "fecha_instalacion": "2025-04-23T00:00:00",
+            "horas_uso": 200,
+            "horas_mantenimiento": 100,
+            "id": "045",
+            "ubicacion_id": "4"
+        }
+    ],
+    "tecnicos": [
+        {
+            "nombre": "Luis P\u00e9rez",
+            "especialidad": "Mec\u00e1nica Industrial",
+            "activo": true,
+            "id": "T001"
+        },
+        {
+            "nombre": "Ana L\u00f3pez",
+            "especialidad": "Electromec\u00e1nica",
+            "activo": false,
+            "id": "T002"
+        },
+        {
+            "nombre": "Carlos Mart\u00ednez",
+            "especialidad": "Automatizaci\u00f3n",
+            "activo": true,
+            "id": "T003"
+        },
+        {
+            "nombre": "Mar\u00eda Fern\u00e1ndez",
+            "especialidad": "Hidr\u00e1ulica",
+            "activo": true,
+            "id": "T004"
+        }
+    ],
+    "tareas": [
+        {
+            "id": "TAR-001",
+            "tipo": "CORRECTIVO",
+            "fecha_programada": "2025-04-25T10:00:00",
+            "estado": "PENDIENTE",
+            "observaciones": "Revisar la v\u00e1lvula de seguridad",
+            "fecha_realizacion": null,
+            "duracion_minutos": null,
+            "equipo_id": "CA01",
+            "tecnico_id": "T004"
+        },
+        {
+            "id": "TAR-003",
+            "tipo": "PREVENTIVO",
+            "fecha_programada": "2025-04-30T13:00:00",
+            "estado": "PENDIENTE",
+            "observaciones": "Revisar conexiones el\u00e9ctricas",
+            "fecha_realizacion": null,
+            "duracion_minutos": null,
+            "equipo_id": "SB01",
+            "tecnico_id": "T002"
+        },
+        {
+            "id": "TAR-004",
+            "tipo": "CORRECTIVO",
+            "fecha_programada": "2025-04-20T15:30:00",
+            "estado": "COMPLETADA",
+            "observaciones": "Cambio de filtro de aire",
+            "fecha_realizacion": "2025-04-20T16:00:00",
+            "duracion_minutos": 30,
+            "equipo_id": "C01",
+            "tecnico_id": "T003"
+        }
+    ],
+    "ubicaciones": [
+        {
+            "id": "1",
+            "nombre": "Taller Central",
+            "descripcion": "\u00c1rea principal para trabajos de mantenimiento general."
+        },
+        {
+            "id": "2",
+            "nombre": "Zona CNC",
+            "descripcion": "Espacio dedicado a m\u00e1quinas CNC y equipos de precisi\u00f3n."
+        },
+        {
+            "id": "3",
+            "nombre": "Sala de Calderas",
+            "descripcion": "\u00c1rea donde se ubican las calderas y sus sistemas auxiliares."
+        },
+        {
+            "id": "4",
+            "nombre": "Estaci\u00f3n de Bombeo",
+            "descripcion": "Lugar destinado para el monitoreo y mantenimiento de bombas industriales."
+        }
+    ]
+}
