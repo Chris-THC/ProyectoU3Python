@@ -78,28 +78,6 @@
             "duracion_minutos": null,
             "equipo_id": "CA01",
             "tecnico_id": "T004"
-        },
-        {
-            "id": "TAR-003",
-            "tipo": "PREVENTIVO",
-            "fecha_programada": "2025-04-30T13:00:00",
-            "estado": "PENDIENTE",
-            "observaciones": "Revisar conexiones el\u00e9ctricas",
-            "fecha_realizacion": null,
-            "duracion_minutos": null,
-            "equipo_id": "SB01",
-            "tecnico_id": "T002"
-        },
-        {
-            "id": "TAR-004",
-            "tipo": "CORRECTIVO",
-            "fecha_programada": "2025-04-20T15:30:00",
-            "estado": "COMPLETADA",
-            "observaciones": "Da\u00f1o en el filtro de aire",
-            "fecha_realizacion": "2025-04-20T16:00:00",
-            "duracion_minutos": 30,
-            "equipo_id": "C01",
-            "tecnico_id": "T003"
         }
     ],
     "ubicaciones": [

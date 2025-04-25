@@ -99,13 +99,13 @@ class MainWindow:
         self.lista_alertas = tk.Listbox(frame_alertas)
         self.lista_alertas.pack(fill=tk.BOTH, expand=True)
 
-        # Botón para actualizar
-        btn_actualizar = ttk.Button(panel_derecho, text="Actualizar", command=self.actualizar_listados)
-        btn_actualizar.pack(pady=5)
-
         # Botón para cambiar estado de tarea
         btn_cambiar_estado = ttk.Button(panel_derecho, text="Cambiar Estado", command=self.cambiar_estado_tarea)
         btn_cambiar_estado.pack(pady=5)
+
+        # Botón para eliminar tarea
+        btn_eliminar_tarea = ttk.Button(panel_derecho, text="Eliminar Tarea", command=self.eliminar_tarea)
+        btn_eliminar_tarea.pack(pady=5)
 
     def actualizar_listados(self):
         # Actualizar listado de equipos
@@ -175,6 +175,32 @@ class MainWindow:
             style='Accent.TButton'  # Estilo destacado (requiere tema 'azure' o similar)
         )
         btn_ubicacion.pack(side=tk.LEFT, padx=5)
+
+    def eliminar_tarea(self):
+        # Obtener tarea seleccionada
+        selected_item = self.tree_tareas.selection()
+        if not selected_item:
+            print("No hay tarea seleccionada")  # Depuración
+            return
+
+        # Obtener el ID de la tarea seleccionada
+        tarea_id = self.tree_tareas.item(selected_item, 'values')[0]
+        print("ID de tarea seleccionada para eliminar:", tarea_id)  # Depuración
+
+        # Buscar y eliminar la tarea del sistema
+        tarea = next((t for t in self.gestor.sistema.tareas if t.id == tarea_id), None)
+        if tarea:
+            self.gestor.sistema.tareas.remove(tarea)
+            print(f"Tarea {tarea_id} eliminada del sistema")  # Depuración
+
+            # Guardar cambios en el archivo JSON
+            persistencia = PersistenciaJSON()
+            persistencia.guardar(self.gestor.sistema)
+
+            # Actualizar la tabla de tareas
+            self.actualizar_listados()
+        else:
+            print(f"Tarea {tarea_id} no encontrada")  # Depuración
 
     def abrir_form_equipo(self):
         EquipoForm(self.root, self.gestor, self.actualizar_listados)
