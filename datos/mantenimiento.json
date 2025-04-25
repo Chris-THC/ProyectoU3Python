@@ -31,14 +31,6 @@
             "horas_mantenimiento": 20,
             "id": "SB01",
             "ubicacion_id": "4"
-        },
-        {
-            "nombre": "Herramienta1",
-            "fecha_instalacion": "2025-04-23T00:00:00",
-            "horas_uso": 200,
-            "horas_mantenimiento": 100,
-            "id": "045",
-            "ubicacion_id": "4"
         }
     ],
     "tecnicos": [
@@ -55,12 +47,6 @@
             "id": "T002"
         },
         {
-            "nombre": "Carlos Mart\u00ednez",
-            "especialidad": "Automatizaci\u00f3n",
-            "activo": true,
-            "id": "T003"
-        },
-        {
             "nombre": "Mar\u00eda Fern\u00e1ndez",
             "especialidad": "Hidr\u00e1ulica",
             "activo": true,
@@ -72,7 +58,7 @@
             "id": "TAR-001",
             "tipo": "CORRECTIVO",
             "fecha_programada": "2025-04-25T10:00:00",
-            "estado": "COMPLETADA",
+            "estado": "PENDIENTE",
             "observaciones": "Falla en la v\u00e1lvula de seguridad",
             "fecha_realizacion": null,
             "duracion_minutos": null,

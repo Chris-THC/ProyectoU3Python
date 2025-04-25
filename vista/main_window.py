@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 
 from control.gestor_mantenimiento import GestorMantenimiento
 from control.reportes import GeneradorReportes
@@ -19,7 +19,7 @@ class MainWindow:
 
         self.root = tk.Tk()
         self.root.title("Sistema de Gestión de Mantenimiento Industrial")
-        self.root.geometry("1150x600")
+        self.root.geometry("1100x500")
 
         self._crear_menu()
         self._crear_boton_ubicacion()
@@ -68,6 +68,11 @@ class MainWindow:
         self.tree_equipos.heading('nombre', text='Nombre')
         self.tree_equipos.heading('ubicacion', text='Ubicación')
         self.tree_equipos.pack(fill=tk.BOTH, expand=True)
+
+        # Botón de eliminación de equipos
+        btn_eliminar_equipo = ttk.Button(frame_equipos, text="Eliminar Equipo", command=self.eliminar_equipo)
+        btn_eliminar_equipo.pack(pady=5, side=tk.LEFT)
+
         notebook.add(frame_equipos, text='Equipos')
 
         # Pestaña de técnicos
@@ -76,6 +81,11 @@ class MainWindow:
         self.tree_tecnicos.heading('nombre', text='Nombre')
         self.tree_tecnicos.heading('especialidad', text='Especialidad')
         self.tree_tecnicos.pack(fill=tk.BOTH, expand=True)
+
+        # Botón de eliminación de técnicos
+        btn_eliminar_tecnico = ttk.Button(frame_tecnicos, text="Eliminar Técnico", command=self.eliminar_tecnico)
+        btn_eliminar_tecnico.pack(pady=5, side=tk.LEFT)
+
         notebook.add(frame_tecnicos, text='Técnicos')
 
         # Pestaña de tareas
@@ -107,7 +117,6 @@ class MainWindow:
         self.lista_alertas = tk.Listbox(frame_alertas)
         self.lista_alertas.pack(fill=tk.BOTH, expand=True)
 
-
     def actualizar_listados(self):
         # Actualizar listado de equipos
         self.tree_equipos.delete(*self.tree_equipos.get_children())
@@ -136,16 +145,14 @@ class MainWindow:
             self.lista_alertas.insert(tk.END, f"{equipo.nombre} necesita mantenimiento")
 
     def cambiar_estado_tarea(self):
-        print("Botón 'Cambiar Estado' presionado")  # Depuración
         # Obtener tarea seleccionada
         selected_item = self.tree_tareas.selection()
         if not selected_item:
-            print("No hay tarea seleccionada")  # Depuración
             return  # No hay tarea seleccionada
 
         # Acceder al ID de la tarea desde el primer valor
         tarea_id = self.tree_tareas.item(selected_item, 'values')[0]
-        print("ID de tarea seleccionada:", tarea_id)  # Depuración
+
         tarea = next((t for t in self.gestor.sistema.tareas if t.id == tarea_id), None)
 
         if tarea:
@@ -154,7 +161,7 @@ class MainWindow:
                 tarea.estado = EstadoTarea.COMPLETADA
             elif tarea.estado == EstadoTarea.COMPLETADA:
                 tarea.estado = EstadoTarea.PENDIENTE
-            print(f"Nuevo estado: {tarea.estado}")  # Depuración
+            messagebox.showinfo("Éxito", f"Nuevo Estado: '{tarea.estado.name}'")
 
             # Actualizar Treeview
             self.actualizar_listados()
@@ -202,6 +209,40 @@ class MainWindow:
             self.actualizar_listados()
         else:
             print(f"Tarea {tarea_id} no encontrada")  # Depuración
+
+    def eliminar_equipo(self):
+        selected_item = self.tree_equipos.selection()
+        if not selected_item:
+            messagebox.showwarning("Advertencia", "No hay equipo seleccionado")
+            return
+
+        equipo_id = self.tree_equipos.item(selected_item, 'values')[0]
+        equipo = next((e for e in self.gestor.sistema.equipos if e.nombre == equipo_id), None)
+
+        if equipo and not self.gestor.obtener_tareas_por_equipo(equipo.id):
+            self.gestor.sistema.equipos.remove(equipo)
+            messagebox.showinfo("Éxito", f"Equipo '{equipo.nombre}' eliminado correctamente")
+            PersistenciaJSON().guardar(self.gestor.sistema)
+            self.actualizar_listados()
+        else:
+            messagebox.showerror("Error", "No se puede eliminar el equipo porque tiene tareas asociadas")
+
+    def eliminar_tecnico(self):
+        selected_item = self.tree_tecnicos.selection()
+        if not selected_item:
+            messagebox.showwarning("Advertencia", "No hay técnico seleccionado")
+            return
+
+        tecnico_id = self.tree_tecnicos.item(selected_item, 'values')[0]
+        tecnico = next((t for t in self.gestor.sistema.tecnicos if t.nombre == tecnico_id), None)
+
+        if tecnico and not self.gestor.obtener_tareas_por_tecnico(tecnico.id):
+            self.gestor.sistema.tecnicos.remove(tecnico)
+            messagebox.showinfo("Éxito", f"Técnico '{tecnico.nombre}' eliminado correctamente")
+            PersistenciaJSON().guardar(self.gestor.sistema)
+            self.actualizar_listados()
+        else:
+            messagebox.showerror("Error", "No se puede eliminar el técnico porque tiene tareas asociadas")
 
     def abrir_form_equipo(self):
         EquipoForm(self.root, self.gestor, self.actualizar_listados)
