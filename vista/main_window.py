@@ -3,6 +3,8 @@ from tkinter import ttk
 
 from control.gestor_mantenimiento import GestorMantenimiento
 from control.reportes import GeneradorReportes
+from modelo.entidades import EstadoTarea
+from modelo.persistencia import PersistenciaJSON
 from vista.forms.equipo_form import EquipoForm
 from vista.forms.tarea_form import TareaForm
 from vista.forms.tecnico_form import TecnicoForm
@@ -17,7 +19,7 @@ class MainWindow:
 
         self.root = tk.Tk()
         self.root.title("Sistema de Gestión de Mantenimiento Industrial")
-        self.root.geometry("1000x600")
+        self.root.geometry("1150x600")
 
         self._crear_menu()
         self._crear_boton_ubicacion()
@@ -78,7 +80,8 @@ class MainWindow:
 
         # Pestaña de tareas
         frame_tareas = ttk.Frame(notebook)
-        self.tree_tareas = ttk.Treeview(frame_tareas, columns=('equipo', 'tipo', 'estado'), show='headings')
+        self.tree_tareas = ttk.Treeview(frame_tareas, columns=('id', 'equipo', 'tipo', 'estado'), show='headings')
+        self.tree_tareas.heading('id', text='ID')
         self.tree_tareas.heading('equipo', text='Equipo')
         self.tree_tareas.heading('tipo', text='Tipo')
         self.tree_tareas.heading('estado', text='Estado')
@@ -100,6 +103,10 @@ class MainWindow:
         btn_actualizar = ttk.Button(panel_derecho, text="Actualizar", command=self.actualizar_listados)
         btn_actualizar.pack(pady=5)
 
+        # Botón para cambiar estado de tarea
+        btn_cambiar_estado = ttk.Button(panel_derecho, text="Cambiar Estado", command=self.cambiar_estado_tarea)
+        btn_cambiar_estado.pack(pady=5)
+
     def actualizar_listados(self):
         # Actualizar listado de equipos
         self.tree_equipos.delete(*self.tree_equipos.get_children())
@@ -115,6 +122,7 @@ class MainWindow:
         self.tree_tareas.delete(*self.tree_tareas.get_children())
         for tarea in self.gestor.sistema.tareas:
             self.tree_tareas.insert('', 'end', values=(
+                tarea.id,  # Incluye el ID como primer valor
                 tarea.equipo.nombre,
                 tarea.tipo.name,
                 tarea.estado.name
@@ -125,6 +133,34 @@ class MainWindow:
         alertas = self.gestor.verificar_alertas_mantenimiento()
         for equipo in alertas:
             self.lista_alertas.insert(tk.END, f"{equipo.nombre} necesita mantenimiento")
+
+    def cambiar_estado_tarea(self):
+        print("Botón 'Cambiar Estado' presionado")  # Depuración
+        # Obtener tarea seleccionada
+        selected_item = self.tree_tareas.selection()
+        if not selected_item:
+            print("No hay tarea seleccionada")  # Depuración
+            return  # No hay tarea seleccionada
+
+        # Acceder al ID de la tarea desde el primer valor
+        tarea_id = self.tree_tareas.item(selected_item, 'values')[0]
+        print("ID de tarea seleccionada:", tarea_id)  # Depuración
+        tarea = next((t for t in self.gestor.sistema.tareas if t.id == tarea_id), None)
+
+        if tarea:
+            # Alternar estado
+            if tarea.estado == EstadoTarea.PENDIENTE:
+                tarea.estado = EstadoTarea.COMPLETADA
+            elif tarea.estado == EstadoTarea.COMPLETADA:
+                tarea.estado = EstadoTarea.PENDIENTE
+            print(f"Nuevo estado: {tarea.estado}")  # Depuración
+
+            # Actualizar Treeview
+            self.actualizar_listados()
+
+            # Guardar cambios en el archivo JSON
+            persistencia = PersistenciaJSON()
+            persistencia.guardar(self.gestor.sistema)
 
     def _crear_boton_ubicacion(self):
         # Frame para el botón en la parte superior

@@ -72,7 +72,7 @@
             "id": "TAR-001",
             "tipo": "CORRECTIVO",
             "fecha_programada": "2025-04-25T10:00:00",
-            "estado": "PENDIENTE",
+            "estado": "COMPLETADA",
             "observaciones": "Falla en la v\u00e1lvula de seguridad",
             "fecha_realizacion": null,
             "duracion_minutos": null,
