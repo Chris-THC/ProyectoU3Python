@@ -86,6 +86,14 @@ class MainWindow:
         self.tree_tareas.heading('tipo', text='Tipo')
         self.tree_tareas.heading('estado', text='Estado')
         self.tree_tareas.pack(fill=tk.BOTH, expand=True)
+
+        # Botones específicos para la pestaña de tareas
+        btn_cambiar_estado = ttk.Button(frame_tareas, text="Cambiar Estado", command=self.cambiar_estado_tarea)
+        btn_cambiar_estado.pack(pady=5, side=tk.LEFT)
+
+        btn_eliminar_tarea = ttk.Button(frame_tareas, text="Eliminar Tarea", command=self.eliminar_tarea)
+        btn_eliminar_tarea.pack(pady=5, side=tk.LEFT)
+
         notebook.add(frame_tareas, text='Tareas')
 
         # Panel derecho (detalles)
@@ -99,13 +107,6 @@ class MainWindow:
         self.lista_alertas = tk.Listbox(frame_alertas)
         self.lista_alertas.pack(fill=tk.BOTH, expand=True)
 
-        # Botón para cambiar estado de tarea
-        btn_cambiar_estado = ttk.Button(panel_derecho, text="Cambiar Estado", command=self.cambiar_estado_tarea)
-        btn_cambiar_estado.pack(pady=5)
-
-        # Botón para eliminar tarea
-        btn_eliminar_tarea = ttk.Button(panel_derecho, text="Eliminar Tarea", command=self.eliminar_tarea)
-        btn_eliminar_tarea.pack(pady=5)
 
     def actualizar_listados(self):
         # Actualizar listado de equipos
