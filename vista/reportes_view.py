@@ -1,5 +1,14 @@
+import os
 import tkinter as tk
-from tkinter import ttk
+from io import BytesIO
+from tkinter import ttk, filedialog, messagebox
+
+from reportlab.graphics.charts.barcharts import VerticalBarChart
+from reportlab.graphics.shapes import Drawing
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 
 
 class ReportesView:
@@ -45,15 +54,14 @@ class ReportesView:
         # Pestaña 4: Estadísticas generales
         frame_stats = ttk.Frame(notebook)
 
-        # Tiempo promedio
-        ttk.Label(frame_stats, text="Tiempo promedio de mantenimiento:").pack(anchor=tk.W, pady=5)
-        self.tiempo_promedio_var = tk.StringVar()
-        ttk.Label(frame_stats, textvariable=self.tiempo_promedio_var, font=('Arial', 12)).pack(anchor=tk.W)
-
         # Mantenimientos por tipo
         ttk.Label(frame_stats, text="Distribución por tipo:").pack(anchor=tk.W, pady=5)
         self.tipo_frame = ttk.Frame(frame_stats)
         self.tipo_frame.pack(fill=tk.X, pady=5)
+
+        # Reporte de mantenimiento
+        ttk.Label(frame_stats, text="Descargar reporte de mantenimiento:").pack(anchor=tk.W, pady=5)
+        ttk.Button(frame_stats, text="Descargar PDF", command=self._descargar_pdf).pack(pady=10)
 
         notebook.add(frame_stats, text='Estadísticas')
 
@@ -73,10 +81,6 @@ class ReportesView:
         for equipo, count in fallas.items():
             self.tree_fallas.insert('', 'end', values=(equipo, count))
 
-        # Estadísticas generales
-        tiempo_prom = self.generador.tiempo_promedio_mantenimiento()
-        self.tiempo_promedio_var.set(f"{tiempo_prom:.1f} minutos")
-
         tipos = self.generador.mantenimientos_por_tipo()
         for tipo, count in tipos.items():
             frame = ttk.Frame(self.tipo_frame)
@@ -86,3 +90,104 @@ class ReportesView:
             ttk.Progressbar(frame, value=count, maximum=max(tipos.values() or 1)).pack(side=tk.LEFT, expand=True,
                                                                                        fill=tk.X, padx=5)
             ttk.Label(frame, text=str(count)).pack(side=tk.LEFT)
+
+    def _generar_pdf(self):
+        try:
+            pdf_buffer = BytesIO()
+            self._crear_pdf(pdf_buffer)
+            pdf_buffer.seek(0)
+            os.startfile(pdf_buffer, 'open')  # Abre el PDF desde memoria
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo generar el PDF: {e}")
+
+    def _descargar_pdf(self):
+        try:
+            file_path = filedialog.asksaveasfilename(
+                defaultextension=".pdf",
+                filetypes=[("Archivos PDF", "*.pdf")],
+                title="Guardar reporte como"
+            )
+            if file_path:
+                with open(file_path, "wb") as f:
+                    pdf_buffer = BytesIO()
+                    self._crear_pdf(pdf_buffer)
+                    f.write(pdf_buffer.getvalue())
+                messagebox.showinfo("Éxito", "Reporte guardado correctamente")
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo guardar el PDF: {e}")
+
+    def _crear_pdf(self, buffer):
+        doc = SimpleDocTemplate(buffer, pagesize=letter)
+        elements = []
+        styles = getSampleStyleSheet()
+
+        # Título
+        elements.append(Paragraph("Reporte de Mantenimiento", styles['Title']))
+
+        # Tabla de equipos
+        equipos = [["ID", "Nombre", "Ubicación", "Horas de Uso"]]
+        for equipo in self.generador.sistema.equipos:
+            equipos.append([equipo.id, equipo.nombre, equipo.ubicacion.nombre, equipo.horas_uso])
+        table_equipos = Table(equipos)
+        table_equipos.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ]))
+        elements.append(Paragraph("Equipos registrados", styles['Heading2']))
+        elements.append(table_equipos)
+
+        # Tabla de técnicos
+        tecnicos = [["ID", "Nombre", "Especialidad", "Activo"]]
+        for tecnico in self.generador.sistema.tecnicos:
+            tecnicos.append([tecnico.id, tecnico.nombre, tecnico.especialidad, "Sí" if tecnico.activo else "No"])
+        table_tecnicos = Table(tecnicos)
+        table_tecnicos.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ]))
+        elements.append(Paragraph("Técnicos registrados:", styles['Heading2']))
+        elements.append(table_tecnicos)
+
+        # Tabla de ubicaciones
+        ubicaciones = [["ID", "Nombre", "Descripción"]]
+        for ubicacion in self.generador.sistema.ubicaciones:
+            ubicaciones.append([ubicacion.id, ubicacion.nombre, ubicacion.descripcion])
+        table_ubicaciones = Table(ubicaciones)
+        table_ubicaciones.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ]))
+        elements.append(Paragraph("Ubicaciones regitrados", styles['Heading2']))
+        elements.append(table_ubicaciones)
+
+        # Gráfica de estadísticas
+        elements.append(Paragraph("Estadísticas de Mantenimiento", styles['Heading2']))
+        drawing = Drawing(400, 200)
+        chart = VerticalBarChart()
+        chart.x = 50
+        chart.y = 50
+        chart.height = 125
+        chart.width = 300
+
+        # Datos de la gráfica
+        data = [list(self.generador.mantenimientos_por_tipo().values())]
+        chart.data = data
+        chart.categoryAxis.categoryNames = list(self.generador.mantenimientos_por_tipo().keys())
+        chart.bars[0].fillColor = colors.blue
+
+        # Configuración del eje Y
+        chart.valueAxis.valueMin = 0
+        chart.valueAxis.valueMax = max(max(data)) + 1  # Ajusta el máximo según los datos
+        chart.valueAxis.valueStep = 1  # Escala de 1 en 1
+
+        drawing.add(chart)
+        elements.append(drawing)
+
+        # Construir el PDF
+        doc.build(elements)
