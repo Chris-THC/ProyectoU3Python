@@ -81,17 +81,6 @@
             "duracion_minutos": null,
             "equipo_id": "C01",
             "tecnico_id": "T001"
-        },
-        {
-            "id": "TAR-1745633691.481405",
-            "tipo": "CORRECTIVO",
-            "fecha_programada": "2025-04-25T20:14:51.481405",
-            "estado": "PENDIENTE",
-            "observaciones": "Una falla con errores",
-            "fecha_realizacion": "2025-04-25T20:14:51.481405",
-            "duracion_minutos": null,
-            "equipo_id": "C01",
-            "tecnico_id": "T004"
         }
     ],
     "ubicaciones": [
