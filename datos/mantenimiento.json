@@ -51,19 +51,36 @@
             "especialidad": "Hidr\u00e1ulica",
             "activo": true,
             "id": "T004"
+        },
+        {
+            "nombre": "Jose Perez Diaz",
+            "especialidad": "Mecanico",
+            "activo": true,
+            "id": "564567"
         }
     ],
     "tareas": [
         {
-            "id": "TAR-001",
+            "id": "TAR-1745629044.168582",
             "tipo": "CORRECTIVO",
-            "fecha_programada": "2025-04-25T10:00:00",
+            "fecha_programada": "2025-04-25T18:57:24.168582",
             "estado": "PENDIENTE",
-            "observaciones": "Falla en la v\u00e1lvula de seguridad",
+            "observaciones": "Mantenimiento Correctivo",
+            "fecha_realizacion": "2025-04-25T18:57:24.168582",
+            "duracion_minutos": null,
+            "equipo_id": "C01",
+            "tecnico_id": "T001"
+        },
+        {
+            "id": "TAR-1745629509.463878",
+            "tipo": "PREVENTIVO",
+            "fecha_programada": "2025-05-02T00:00:00",
+            "estado": "COMPLETADA",
+            "observaciones": "",
             "fecha_realizacion": null,
             "duracion_minutos": null,
-            "equipo_id": "CA01",
-            "tecnico_id": "T004"
+            "equipo_id": "C01",
+            "tecnico_id": "T001"
         }
     ],
     "ubicaciones": [

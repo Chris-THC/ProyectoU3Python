@@ -91,7 +91,7 @@ class TareaMantenimiento:
         self.equipo = equipo
         self.fecha_programada = fecha_programada
         self.tecnico_asignado = tecnico_asignado
-        self.estado = estado
+        self.estado = EstadoTarea.PENDIENTE
         self.observaciones = observaciones
         self.fecha_realizacion = fecha_realizacion
         self.duracion_minutos = duracion_minutos
