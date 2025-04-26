@@ -1,5 +1,6 @@
 import tkinter as tk
 from datetime import datetime
+from random import randint
 from tkinter import ttk, messagebox
 from typing import Callable
 
@@ -19,11 +20,6 @@ class EquipoForm:
         # Frame principal
         frame = ttk.Frame(self.window, padding=10)
         frame.pack(fill=tk.BOTH, expand=True)
-
-        # Campos del formulario
-        ttk.Label(frame, text="ID del Equipo:").grid(row=0, column=0, sticky=tk.W, pady=5)
-        self.id_entry = ttk.Entry(frame)
-        self.id_entry.grid(row=0, column=1, sticky=tk.EW, pady=5)
 
         ttk.Label(frame, text="Nombre:").grid(row=1, column=0, sticky=tk.W, pady=5)
         self.nombre_entry = ttk.Entry(frame)
@@ -90,10 +86,13 @@ class EquipoForm:
         if self.gestor.sistema.ubicaciones:
             self.btn_guardar['state'] = 'normal'
 
+    def _id_aleatorio(self):
+        return str(randint(100000, 999999))  # Genera un número entero de 6 dígitos
+
     def _guardar(self):
         try:
             # Obtener valores del formulario
-            id_equipo = self.id_entry.get().strip()
+            id_equipo = self._id_aleatorio()
             nombre = self.nombre_entry.get().strip()
             ubicacion_str = self.ubicacion_combobox.get()
             fecha_instalacion = datetime.strptime(self.fecha_entry.get(), "%Y-%m-%d")

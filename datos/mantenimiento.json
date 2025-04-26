@@ -31,14 +31,6 @@
             "horas_mantenimiento": 20,
             "id": "SB01",
             "ubicacion_id": "4"
-        },
-        {
-            "nombre": "Herramienta1",
-            "fecha_instalacion": "2025-04-23T00:00:00",
-            "horas_uso": 200,
-            "horas_mantenimiento": 100,
-            "id": "045",
-            "ubicacion_id": "4"
         }
     ],
     "tecnicos": [
@@ -55,51 +47,51 @@
             "id": "T002"
         },
         {
-            "nombre": "Carlos Mart\u00ednez",
-            "especialidad": "Automatizaci\u00f3n",
-            "activo": true,
-            "id": "T003"
-        },
-        {
             "nombre": "Mar\u00eda Fern\u00e1ndez",
             "especialidad": "Hidr\u00e1ulica",
             "activo": true,
             "id": "T004"
+        },
+        {
+            "nombre": "Jose Perez Diaz",
+            "especialidad": "Mecanico",
+            "activo": true,
+            "id": "564567"
         }
     ],
     "tareas": [
         {
-            "id": "TAR-001",
+            "id": "TAR-1745629044.168582",
             "tipo": "CORRECTIVO",
-            "fecha_programada": "2025-04-25T10:00:00",
+            "fecha_programada": "2025-04-25T18:57:24.168582",
             "estado": "PENDIENTE",
-            "observaciones": "Revisar la v\u00e1lvula de seguridad",
-            "fecha_realizacion": null,
+            "observaciones": "Mantenimiento Correctivo",
+            "fecha_realizacion": "2025-04-25T18:57:24.168582",
             "duracion_minutos": null,
-            "equipo_id": "CA01",
-            "tecnico_id": "T004"
-        },
-        {
-            "id": "TAR-003",
-            "tipo": "PREVENTIVO",
-            "fecha_programada": "2025-04-30T13:00:00",
-            "estado": "PENDIENTE",
-            "observaciones": "Revisar conexiones el\u00e9ctricas",
-            "fecha_realizacion": null,
-            "duracion_minutos": null,
-            "equipo_id": "SB01",
-            "tecnico_id": "T002"
-        },
-        {
-            "id": "TAR-004",
-            "tipo": "CORRECTIVO",
-            "fecha_programada": "2025-04-20T15:30:00",
-            "estado": "COMPLETADA",
-            "observaciones": "Cambio de filtro de aire",
-            "fecha_realizacion": "2025-04-20T16:00:00",
-            "duracion_minutos": 30,
             "equipo_id": "C01",
-            "tecnico_id": "T003"
+            "tecnico_id": "T001"
+        },
+        {
+            "id": "TAR-1745629509.463878",
+            "tipo": "PREVENTIVO",
+            "fecha_programada": "2025-05-02T00:00:00",
+            "estado": "PENDIENTE",
+            "observaciones": "",
+            "fecha_realizacion": null,
+            "duracion_minutos": null,
+            "equipo_id": "C01",
+            "tecnico_id": "T001"
+        },
+        {
+            "id": "TAR-1745633691.481405",
+            "tipo": "CORRECTIVO",
+            "fecha_programada": "2025-04-25T20:14:51.481405",
+            "estado": "PENDIENTE",
+            "observaciones": "Una falla con errores",
+            "fecha_realizacion": "2025-04-25T20:14:51.481405",
+            "duracion_minutos": null,
+            "equipo_id": "C01",
+            "tecnico_id": "T004"
         }
     ],
     "ubicaciones": [

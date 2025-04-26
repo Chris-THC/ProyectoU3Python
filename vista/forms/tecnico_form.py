@@ -1,4 +1,5 @@
 import tkinter as tk
+from random import randint
 from tkinter import ttk, messagebox
 from typing import Callable
 
@@ -20,10 +21,6 @@ class TecnicoForm:
         frame.pack(fill=tk.BOTH, expand=True)
 
         # Campos del formulario
-        ttk.Label(frame, text="ID del Técnico:").grid(row=0, column=0, sticky=tk.W, pady=5)
-        self.id_entry = ttk.Entry(frame)
-        self.id_entry.grid(row=0, column=1, sticky=tk.EW, pady=5)
-
         ttk.Label(frame, text="Nombre:").grid(row=1, column=0, sticky=tk.W, pady=5)
         self.nombre_entry = ttk.Entry(frame)
         self.nombre_entry.grid(row=1, column=1, sticky=tk.EW, pady=5)
@@ -53,7 +50,7 @@ class TecnicoForm:
     def _guardar(self):
         try:
             # Obtener valores del formulario
-            id_tecnico = self.id_entry.get().strip()
+            id_tecnico = self._id_aleatorio()
             nombre = self.nombre_entry.get().strip()
             especialidad = self.especialidad_entry.get().strip()
             activo = self.activo_var.get()
@@ -77,3 +74,6 @@ class TecnicoForm:
             messagebox.showerror("Error", f"Datos inválidos: {e}")
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo registrar el técnico: {e}")
+
+    def _id_aleatorio(self):
+        return str(randint(100000, 999999))
