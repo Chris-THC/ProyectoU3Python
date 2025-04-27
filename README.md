@@ -48,7 +48,7 @@ Crea un entorno virtual para aislar las dependencias del proyecto:
 ### 3. Activar el entorno virtual
 Activa el entorno virtual:
 ```bash
-  venv\Scripts\activate
+  .\.venv\Scripts\activate
 ```
 
 ### 4. Instalar las dependencias
