@@ -1,7 +1,7 @@
 # Sistema de Gestión de Mantenimiento Industrial
 
 ## Autor
-- [@Cristofer Amador Hernandez](https://github.com/Chris-THC)
+- [Cristofer Amador Hernandez](https://github.com/Chris-THC)
 
 ## Descripción del Proyecto
 

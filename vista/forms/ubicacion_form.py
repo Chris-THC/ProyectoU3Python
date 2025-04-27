@@ -5,7 +5,21 @@ from typing import Callable
 
 
 class UbicacionForm:
+    """
+    Clase que representa el formulario para registrar una nueva ubicación en el sistema.
+
+    Permite al usuario ingresar los datos necesarios para registrar una ubicación,
+    como el nombre y una descripción opcional.
+    """
+
     def __init__(self, parent, gestor, callback_actualizar: Callable):
+        """
+        Inicializa el formulario de registro de ubicación.
+
+        :param parent: Ventana padre donde se abrirá el formulario.
+        :param gestor: Objeto gestor que maneja la lógica del sistema.
+        :param callback_actualizar: Función de callback para actualizar la vista principal tras registrar una ubicación.
+        """
         self.gestor = gestor
         self.callback_actualizar = callback_actualizar
 
@@ -16,6 +30,9 @@ class UbicacionForm:
         self._crear_formulario()
 
     def _crear_formulario(self):
+        """
+        Crea y organiza los elementos del formulario de registro de ubicación.
+        """
         frame = ttk.Frame(self.window, padding=10)
         frame.pack(fill=tk.BOTH, expand=True)
 
@@ -38,6 +55,12 @@ class UbicacionForm:
         frame.columnconfigure(1, weight=1)
 
     def _guardar(self):
+        """
+        Guarda los datos de la ubicación ingresados en el formulario.
+
+        Realiza validaciones básicas y registra la ubicación en el sistema.
+        Muestra mensajes de éxito o error según el resultado.
+        """
         try:
             ubicacion = self.gestor.registrar_ubicacion(
                 id=self._id_aleatorio(),
@@ -51,4 +74,9 @@ class UbicacionForm:
             messagebox.showerror("Error", f"Datos inválidos: {e}")
 
     def _id_aleatorio(self):
+        """
+        Genera un ID aleatorio para la ubicación.
+
+        :return: Id aleatorio como cadena.
+        """
         return str(randint(100000, 999999))

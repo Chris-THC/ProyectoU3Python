@@ -9,14 +9,6 @@
             "ubicacion_id": "1"
         },
         {
-            "nombre": "Torno CNC",
-            "fecha_instalacion": "2024-06-10T00:00:00",
-            "horas_uso": 850,
-            "horas_mantenimiento": 50,
-            "id": "T01",
-            "ubicacion_id": "2"
-        },
-        {
             "nombre": "Caldera Industrial",
             "fecha_instalacion": "2022-11-01T00:00:00",
             "horas_uso": 5000,
@@ -25,20 +17,12 @@
             "ubicacion_id": "3"
         },
         {
-            "nombre": "Sistema de Bombeo",
-            "fecha_instalacion": "2025-01-20T00:00:00",
-            "horas_uso": 300,
-            "horas_mantenimiento": 20,
-            "id": "SB01",
-            "ubicacion_id": "4"
-        },
-        {
-            "nombre": "Herramienta Test",
+            "nombre": "Test",
             "fecha_instalacion": "2025-04-27T00:00:00",
-            "horas_uso": 100,
-            "horas_mantenimiento": 100,
-            "id": "148891",
-            "ubicacion_id": "003"
+            "horas_uso": 30,
+            "horas_mantenimiento": 20,
+            "id": "538932",
+            "ubicacion_id": "1"
         }
     ],
     "tecnicos": [
@@ -47,12 +31,6 @@
             "especialidad": "Mec\u00e1nica Industrial",
             "activo": true,
             "id": "T001"
-        },
-        {
-            "nombre": "Ana L\u00f3pez",
-            "especialidad": "Electromec\u00e1nica",
-            "activo": false,
-            "id": "T002"
         },
         {
             "nombre": "Mar\u00eda Fern\u00e1ndez",
@@ -67,35 +45,13 @@
             "id": "564567"
         },
         {
-            "nombre": "Tecnico nuevo",
+            "nombre": "Jose Perez",
             "especialidad": "Sistemas",
             "activo": true,
-            "id": "962828"
+            "id": "319863"
         }
     ],
     "tareas": [
-        {
-            "id": "TAR-1745629044.168582",
-            "tipo": "CORRECTIVO",
-            "fecha_programada": "2025-04-25T18:57:24.168582",
-            "estado": "PENDIENTE",
-            "observaciones": "Mantenimiento Correctivo",
-            "fecha_realizacion": "2025-04-25T18:57:24.168582",
-            "duracion_minutos": null,
-            "equipo_id": "C01",
-            "tecnico_id": "T001"
-        },
-        {
-            "id": "TAR-1745629509.463878",
-            "tipo": "PREVENTIVO",
-            "fecha_programada": "2025-05-02T00:00:00",
-            "estado": "PENDIENTE",
-            "observaciones": "",
-            "fecha_realizacion": null,
-            "duracion_minutos": null,
-            "equipo_id": "C01",
-            "tecnico_id": "T001"
-        },
         {
             "id": "TAR-1745769526.312432",
             "tipo": "CORRECTIVO",
@@ -128,17 +84,6 @@
             "duracion_minutos": null,
             "equipo_id": "CA01",
             "tecnico_id": "564567"
-        },
-        {
-            "id": "TAR-1745769730.009288",
-            "tipo": "CORRECTIVO",
-            "fecha_programada": "2025-04-27T10:02:10.009288",
-            "estado": "PENDIENTE",
-            "observaciones": "Fallas en calderas",
-            "fecha_realizacion": "2025-04-27T10:02:10.009288",
-            "duracion_minutos": null,
-            "equipo_id": "CA01",
-            "tecnico_id": "T004"
         }
     ],
     "ubicaciones": [
