@@ -167,7 +167,6 @@ class ReportesView:
         elements.append(table_ubicaciones)
 
         # Gráfica de estadísticas
-        elements.append(Paragraph("Estadísticas de Mantenimiento", styles['Heading2']))
         drawing = Drawing(400, 200)
         chart = VerticalBarChart()
         chart.x = 50
@@ -188,6 +187,7 @@ class ReportesView:
 
         drawing.add(chart)
         elements.append(drawing)
+        elements.append(Paragraph("Estadísticas de Mantenimiento", styles['Heading2']))
 
         # Construir el PDF
         doc.build(elements)

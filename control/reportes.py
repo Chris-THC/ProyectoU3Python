@@ -1,7 +1,11 @@
 from collections import defaultdict
 from typing import List, Dict, Tuple
 
-from modelo.entidades import SistemaMantenimiento, Equipo, EstadoTarea, Tecnico, TipoMantenimiento
+from modelo.Entidades.Equipo import Equipo
+from modelo.Entidades.EstadoTarea import EstadoTarea
+from modelo.Entidades.Tecnico import Tecnico
+from modelo.Entidades.TipoMantenimiento import TipoMantenimiento
+from modelo.SistemaMantenimiento import SistemaMantenimiento
 
 
 class GeneradorReportes:

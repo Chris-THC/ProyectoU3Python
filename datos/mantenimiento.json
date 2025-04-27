@@ -31,6 +31,14 @@
             "horas_mantenimiento": 20,
             "id": "SB01",
             "ubicacion_id": "4"
+        },
+        {
+            "nombre": "Herramienta Test",
+            "fecha_instalacion": "2025-04-27T00:00:00",
+            "horas_uso": 100,
+            "horas_mantenimiento": 100,
+            "id": "148891",
+            "ubicacion_id": "003"
         }
     ],
     "tecnicos": [
@@ -57,6 +65,12 @@
             "especialidad": "Mecanico",
             "activo": true,
             "id": "564567"
+        },
+        {
+            "nombre": "Tecnico nuevo",
+            "especialidad": "Sistemas",
+            "activo": true,
+            "id": "962828"
         }
     ],
     "tareas": [
@@ -81,6 +95,50 @@
             "duracion_minutos": null,
             "equipo_id": "C01",
             "tecnico_id": "T001"
+        },
+        {
+            "id": "TAR-1745769526.312432",
+            "tipo": "CORRECTIVO",
+            "fecha_programada": "2025-04-27T09:58:46.312432",
+            "estado": "PENDIENTE",
+            "observaciones": "uinaa nana",
+            "fecha_realizacion": "2025-04-27T09:58:46.312432",
+            "duracion_minutos": null,
+            "equipo_id": "C01",
+            "tecnico_id": "T001"
+        },
+        {
+            "id": "TAR-1745769689.642805",
+            "tipo": "PREVENTIVO",
+            "fecha_programada": "2025-05-04T00:00:00",
+            "estado": "PENDIENTE",
+            "observaciones": "",
+            "fecha_realizacion": null,
+            "duracion_minutos": null,
+            "equipo_id": "C01",
+            "tecnico_id": "T001"
+        },
+        {
+            "id": "TAR-1745769708.780762",
+            "tipo": "PREVENTIVO",
+            "fecha_programada": "2025-05-04T00:00:00",
+            "estado": "PENDIENTE",
+            "observaciones": "",
+            "fecha_realizacion": null,
+            "duracion_minutos": null,
+            "equipo_id": "CA01",
+            "tecnico_id": "564567"
+        },
+        {
+            "id": "TAR-1745769730.009288",
+            "tipo": "CORRECTIVO",
+            "fecha_programada": "2025-04-27T10:02:10.009288",
+            "estado": "PENDIENTE",
+            "observaciones": "Fallas en calderas",
+            "fecha_realizacion": "2025-04-27T10:02:10.009288",
+            "duracion_minutos": null,
+            "equipo_id": "CA01",
+            "tecnico_id": "T004"
         }
     ],
     "ubicaciones": [
@@ -103,6 +161,11 @@
             "id": "4",
             "nombre": "Estaci\u00f3n de Bombeo",
             "descripcion": "Lugar destinado para el monitoreo y mantenimiento de bombas industriales."
+        },
+        {
+            "id": "003",
+            "nombre": "Test ubicacion",
+            "descripcion": "Este es un test"
         }
     ]
 }

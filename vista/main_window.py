@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 
 from control.gestor_mantenimiento import GestorMantenimiento
 from control.reportes import GeneradorReportes
-from modelo.entidades import EstadoTarea
+from modelo.Entidades.EstadoTarea import EstadoTarea
 from modelo.persistencia import PersistenciaJSON
 from vista.forms.equipo_form import EquipoForm
 from vista.forms.tarea_form import TareaForm

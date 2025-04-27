@@ -1,8 +1,13 @@
 from datetime import datetime
 from typing import List
 
-from modelo.entidades import SistemaMantenimiento, Equipo, Ubicacion, Tecnico, TareaMantenimiento, TipoMantenimiento, \
-    EstadoTarea
+from modelo.Entidades.Equipo import Equipo
+from modelo.Entidades.EstadoTarea import EstadoTarea
+from modelo.Entidades.TareaMantenimiento import TareaMantenimiento
+from modelo.Entidades.Tecnico import Tecnico
+from modelo.Entidades.TipoMantenimiento import TipoMantenimiento
+from modelo.Entidades.Ubicacion import Ubicacion
+from modelo.SistemaMantenimiento import SistemaMantenimiento
 
 
 class GestorMantenimiento:

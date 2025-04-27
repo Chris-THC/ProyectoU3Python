@@ -87,7 +87,7 @@ class EquipoForm:
             self.btn_guardar['state'] = 'normal'
 
     def _id_aleatorio(self):
-        return str(randint(100000, 999999))  # Genera un número entero de 6 dígitos
+        return str(randint(100000, 999999))
 
     def _guardar(self):
         try:

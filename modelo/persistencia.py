@@ -2,8 +2,13 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-from modelo.entidades import SistemaMantenimiento, Ubicacion, Equipo, Tecnico, TareaMantenimiento, TipoMantenimiento, \
-    EstadoTarea
+from modelo.Entidades.Equipo import Equipo
+from modelo.Entidades.EstadoTarea import EstadoTarea
+from modelo.Entidades.TareaMantenimiento import TareaMantenimiento
+from modelo.Entidades.Tecnico import Tecnico
+from modelo.Entidades.TipoMantenimiento import TipoMantenimiento
+from modelo.Entidades.Ubicacion import Ubicacion
+from modelo.SistemaMantenimiento import SistemaMantenimiento
 
 
 class PersistenciaJSON:
