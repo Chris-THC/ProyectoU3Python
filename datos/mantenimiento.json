@@ -23,6 +23,14 @@
             "horas_mantenimiento": 20,
             "id": "538932",
             "ubicacion_id": "1"
+        },
+        {
+            "nombre": "test2",
+            "fecha_instalacion": "2025-05-03T00:00:00",
+            "horas_uso": 0,
+            "horas_mantenimiento": 100,
+            "id": "622964",
+            "ubicacion_id": "4"
         }
     ],
     "tecnicos": [
@@ -67,7 +75,7 @@
             "id": "TAR-1745769689.642805",
             "tipo": "PREVENTIVO",
             "fecha_programada": "2025-05-04T00:00:00",
-            "estado": "PENDIENTE",
+            "estado": "COMPLETADA",
             "observaciones": "",
             "fecha_realizacion": null,
             "duracion_minutos": null,
@@ -84,6 +92,17 @@
             "duracion_minutos": null,
             "equipo_id": "CA01",
             "tecnico_id": "564567"
+        },
+        {
+            "id": "TAR-1746289047.733841",
+            "tipo": "CORRECTIVO",
+            "fecha_programada": "2025-05-03T10:17:27.733841",
+            "estado": "PENDIENTE",
+            "observaciones": "Fallas en la herramienta test2",
+            "fecha_realizacion": "2025-05-03T10:17:27.733841",
+            "duracion_minutos": null,
+            "equipo_id": "622964",
+            "tecnico_id": "T004"
         }
     ],
     "ubicaciones": [
