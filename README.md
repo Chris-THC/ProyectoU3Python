@@ -62,6 +62,11 @@ Ejecuta el archivo principal para iniciar la aplicación:
 ```bash
   python main.py
 ```
+### 6. Desactivar el entorno virtual
+Cuando termines de trabajar en el proyecto, puedes desactivar el entorno virtual con el siguiente comando:
+```bash
+  deactivate
+```
 
 ## Estructura del Proyecto
 
