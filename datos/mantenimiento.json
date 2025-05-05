@@ -75,7 +75,7 @@
             "id": "TAR-1745769689.642805",
             "tipo": "PREVENTIVO",
             "fecha_programada": "2025-05-04T00:00:00",
-            "estado": "COMPLETADA",
+            "estado": "PENDIENTE",
             "observaciones": "",
             "fecha_realizacion": null,
             "duracion_minutos": null,

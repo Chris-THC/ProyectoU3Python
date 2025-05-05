@@ -42,7 +42,7 @@ Y puesdes omitir el paso de clonar el repositorio.
 ### 2. Crear un entorno virtual
 Crea un entorno virtual para aislar las dependencias del proyecto:
 ```bash
-   python -m venv venv
+   python -m venv .venv
 ```
 
 ### 3. Activar el entorno virtual
@@ -61,6 +61,11 @@ Instala los paquetes necesarios desde el archivo `requirements.txt`:
 Ejecuta el archivo principal para iniciar la aplicación:
 ```bash
   python main.py
+```
+### 6. Desactivar el entorno virtual
+Cuando termines de trabajar en el proyecto, puedes desactivar el entorno virtual con el siguiente comando:
+```bash
+  deactivate
 ```
 
 ## Estructura del Proyecto
