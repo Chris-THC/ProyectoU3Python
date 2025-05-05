@@ -42,7 +42,7 @@ Y puesdes omitir el paso de clonar el repositorio.
 ### 2. Crear un entorno virtual
 Crea un entorno virtual para aislar las dependencias del proyecto:
 ```bash
-   python -m venv venv
+   python -m venv .venv
 ```
 
 ### 3. Activar el entorno virtual
