@@ -1,11 +1,24 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
 from datetime import datetime, timedelta
+from tkinter import ttk, messagebox
 from typing import Callable
 
 
 class TareaForm:
+    """
+    Clase que representa el formulario para registrar una nueva tarea de mantenimiento.
+
+    Permite al usuario planificar tareas de mantenimiento preventivo o registrar tareas de mantenimiento correctivo.
+    """
+
     def __init__(self, parent, gestor, callback_actualizar: Callable):
+        """
+        Inicializa el formulario de registro de tareas de mantenimiento.
+
+        :param parent: Ventana padre donde se abrirá el formulario.
+        :param gestor: Objeto gestor que maneja la lógica del sistema.
+        :param callback_actualizar: Función de callback para actualizar la vista principal tras registrar una tarea.
+        """
         self.gestor = gestor
         self.callback_actualizar = callback_actualizar
 
@@ -16,6 +29,9 @@ class TareaForm:
         self._crear_formulario()
 
     def _crear_formulario(self):
+        """
+        Crea y organiza los elementos del formulario de registro de tareas de mantenimiento.
+        """
         # Frame principal
         frame = ttk.Frame(self.window, padding=10)
         frame.pack(fill=tk.BOTH, expand=True)
@@ -82,18 +98,34 @@ class TareaForm:
         self._toggle_tipo()
 
     def _cargar_equipos(self):
+        """
+        Carga los equipos disponibles en el sistema y los muestra en el combobox.
+
+        Si no hay equipos registrados, el combobox permanecerá vacío.
+        """
         equipos = [(e.id, e.nombre) for e in self.gestor.sistema.equipos]
         self.equipo_combobox['values'] = [f"{id} - {nombre}" for id, nombre in equipos]
         if equipos:
             self.equipo_combobox.current(0)
 
     def _cargar_tecnicos(self):
+        """
+        Carga los técnicos activos en el sistema y los muestra en el combobox.
+
+        Si no hay técnicos activos, el combobox permanecerá vacío.
+        """
         tecnicos = [(t.id, t.nombre) for t in self.gestor.sistema.tecnicos if t.activo]
         self.tecnico_combobox['values'] = [f"{id} - {nombre}" for id, nombre in tecnicos]
         if tecnicos:
             self.tecnico_combobox.current(0)
 
     def _toggle_tipo(self):
+        """
+        Alterna entre los campos de entrada según el tipo de mantenimiento seleccionado.
+
+        Muestra el campo de fecha programada para mantenimiento preventivo y
+        el campo de observaciones para mantenimiento correctivo.
+        """
         if self.tipo_var.get() == "PREVENTIVO":
             self.fecha_frame.grid()
             self.obs_frame.grid_forget()
@@ -102,6 +134,12 @@ class TareaForm:
             self.obs_frame.grid(row=3, column=0, columnspan=2, sticky=tk.EW, pady=5)
 
     def _guardar(self):
+        """
+        Guarda los datos de la tarea ingresados en el formulario.
+
+        Realiza validaciones básicas y registra la tarea en el sistema.
+        Muestra mensajes de éxito o error según el resultado.
+        """
         try:
             # Obtener valores comunes
             tipo = self.tipo_var.get()

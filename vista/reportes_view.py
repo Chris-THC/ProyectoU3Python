@@ -1,3 +1,9 @@
+"""
+Módulo que define la vista de reportes del sistema de gestión de mantenimiento industrial.
+
+Proporciona una interfaz gráfica para visualizar reportes relacionados con equipos,
+técnicos, fallas recurrentes y estadísticas generales, además de generar reportes en formato PDF.
+"""
 import os
 import tkinter as tk
 from io import BytesIO
@@ -12,7 +18,21 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 
 
 class ReportesView:
+    """
+       Clase que representa la vista de reportes del sistema.
+
+       Permite visualizar reportes de equipos con más mantenimientos, técnicos más activos,
+       fallas recurrentes y estadísticas generales. También permite generar y descargar
+       reportes en formato PDF.
+    """
+
     def __init__(self, parent, generador_reportes):
+        """
+                Inicializa la vista de reportes.
+
+                :param parent: Ventana padre donde se abrirá la vista de reportes.
+                :param generador_reportes: Objeto encargado de generar los reportes del sistema.
+        """
         self.generador = generador_reportes
 
         self.window = tk.Toplevel(parent)
@@ -23,7 +43,12 @@ class ReportesView:
         self._cargar_reportes()
 
     def _crear_interfaz(self):
-        # Notebook para los diferentes reportes
+        """
+                Crea y organiza los elementos de la interfaz gráfica para la vista de reportes.
+
+                Incluye pestañas para visualizar diferentes reportes y un botón para descargar
+                reportes en formato PDF.
+        """
         notebook = ttk.Notebook(self.window)
         notebook.pack(fill=tk.BOTH, expand=True)
 
@@ -66,7 +91,15 @@ class ReportesView:
         notebook.add(frame_stats, text='Estadísticas')
 
     def _cargar_reportes(self):
-        # Equipos con más mantenimientos
+        """
+                Carga los datos de los reportes en las tablas correspondientes.
+
+                Los reportes incluyen:
+                - Equipos con más mantenimientos.
+                - Técnicos más activos.
+                - Fallas recurrentes.
+                - Estadísticas generales.
+        """
         equipos_top = self.generador.equipos_con_mas_mantenimientos()
         for equipo, count in equipos_top:
             self.tree_equipos.insert('', 'end', values=(equipo.nombre, count))
@@ -92,6 +125,11 @@ class ReportesView:
             ttk.Label(frame, text=str(count)).pack(side=tk.LEFT)
 
     def _generar_pdf(self):
+        """
+                Genera un reporte en formato PDF y lo abre directamente desde la memoria.
+
+                Muestra un mensaje de error si ocurre algún problema durante la generación.
+        """
         try:
             pdf_buffer = BytesIO()
             self._crear_pdf(pdf_buffer)
@@ -101,6 +139,11 @@ class ReportesView:
             messagebox.showerror("Error", f"No se pudo generar el PDF: {e}")
 
     def _descargar_pdf(self):
+        """
+               Descarga el reporte en formato PDF y lo guarda en el sistema de archivos.
+
+               Muestra un cuadro de diálogo para seleccionar la ubicación y el nombre del archivo.
+        """
         try:
             file_path = filedialog.asksaveasfilename(
                 defaultextension=".pdf",
@@ -117,6 +160,14 @@ class ReportesView:
             messagebox.showerror("Error", f"No se pudo guardar el PDF: {e}")
 
     def _crear_pdf(self, buffer):
+        """
+                Crea el contenido del reporte en formato PDF.
+
+                Incluye tablas de equipos, técnicos, ubicaciones y estadísticas gráficas.
+
+                :param buffer: Objeto de tipo BytesIO donde se generará el contenido del PDF.
+        """
+
         doc = SimpleDocTemplate(buffer, pagesize=letter)
         elements = []
         styles = getSampleStyleSheet()
@@ -167,7 +218,6 @@ class ReportesView:
         elements.append(table_ubicaciones)
 
         # Gráfica de estadísticas
-        elements.append(Paragraph("Estadísticas de Mantenimiento", styles['Heading2']))
         drawing = Drawing(400, 200)
         chart = VerticalBarChart()
         chart.x = 50
@@ -188,6 +238,7 @@ class ReportesView:
 
         drawing.add(chart)
         elements.append(drawing)
+        elements.append(Paragraph("Estadísticas de Mantenimiento", styles['Heading2']))
 
         # Construir el PDF
         doc.build(elements)

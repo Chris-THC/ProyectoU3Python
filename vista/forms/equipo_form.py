@@ -6,7 +6,21 @@ from typing import Callable
 
 
 class EquipoForm:
+    """
+    Clase que representa el formulario para registrar un nuevo equipo en el sistema.
+
+    Permite al usuario ingresar los datos necesarios para registrar un equipo,
+    como nombre, ubicación, fecha de instalación, horas de uso y horas entre mantenimientos.
+    """
+
     def __init__(self, parent, gestor, callback_actualizar: Callable):
+        """
+        Inicializa el formulario de registro de equipo.
+
+        :param parent: Ventana padre donde se abrirá el formulario.
+        :param gestor: Objeto gestor que maneja la lógica del sistema.
+        :param callback_actualizar: Función de callback para actualizar la vista principal tras registrar un equipo.
+        """
         self.gestor = gestor
         self.callback_actualizar = callback_actualizar
 
@@ -17,6 +31,9 @@ class EquipoForm:
         self._crear_formulario()
 
     def _crear_formulario(self):
+        """
+        Crea y organiza los elementos del formulario de registro de equipo.
+        """
         # Frame principal
         frame = ttk.Frame(self.window, padding=10)
         frame.pack(fill=tk.BOTH, expand=True)
@@ -56,6 +73,11 @@ class EquipoForm:
         frame.columnconfigure(1, weight=1)
 
     def _cargar_ubicaciones(self):
+        """
+        Carga las ubicaciones disponibles en el sistema y las muestra en el combobox.
+
+        Si no hay ubicaciones registradas, deshabilita el formulario y muestra un mensaje.
+        """
         ubicaciones = [(u.id, u.nombre) for u in self.gestor.sistema.ubicaciones]
         if not ubicaciones:
             # Deshabilitar el formulario y mostrar mensaje
@@ -78,18 +100,35 @@ class EquipoForm:
             self.ubicacion_combobox.current(0)
 
     def _abrir_form_ubicacion(self):
+        """
+        Abre el formulario para registrar una nueva ubicación.
+        """
         from .ubicacion_form import UbicacionForm  # Importación local para evitar circular
         UbicacionForm(self.window, self.gestor, self._actualizar_combobox)
 
     def _actualizar_combobox(self):
+        """
+        Actualiza el combobox de ubicaciones tras registrar una nueva ubicación.
+        """
         self._cargar_ubicaciones()
         if self.gestor.sistema.ubicaciones:
             self.btn_guardar['state'] = 'normal'
 
     def _id_aleatorio(self):
-        return str(randint(100000, 999999))  # Genera un número entero de 6 dígitos
+        """
+        Genera un ID aleatorio para el equipo.
+
+        :return: ID aleatorio como cadena.
+        """
+        return str(randint(100000, 999999))
 
     def _guardar(self):
+        """
+        Guarda los datos del equipo ingresados en el formulario.
+
+        Realiza validaciones básicas y registra el equipo en el sistema.
+        Muestra mensajes de éxito o error según el resultado.
+        """
         try:
             # Obtener valores del formulario
             id_equipo = self._id_aleatorio()

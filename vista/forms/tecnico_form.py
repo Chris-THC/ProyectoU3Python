@@ -5,7 +5,21 @@ from typing import Callable
 
 
 class TecnicoForm:
+    """
+    Clase que representa el formulario para registrar un nuevo técnico en el sistema.
+
+    Permite al usuario ingresar los datos necesarios para registrar un técnico,
+    como nombre, especialidad y estado activo.
+    """
+
     def __init__(self, parent, gestor, callback_actualizar: Callable):
+        """
+        Inicializa el formulario de registro de técnico.
+
+        :param parent: Ventana padre donde se abrirá el formulario.
+        :param gestor: Objeto gestor que maneja la lógica del sistema.
+        :param callback_actualizar: Función de callback para actualizar la vista principal tras registrar un técnico.
+        """
         self.gestor = gestor
         self.callback_actualizar = callback_actualizar
 
@@ -16,6 +30,9 @@ class TecnicoForm:
         self._crear_formulario()
 
     def _crear_formulario(self):
+        """
+        Crea y organiza los elementos del formulario de registro de técnico.
+        """
         # Frame principal
         frame = ttk.Frame(self.window, padding=10)
         frame.pack(fill=tk.BOTH, expand=True)
@@ -48,6 +65,12 @@ class TecnicoForm:
         frame.columnconfigure(1, weight=1)
 
     def _guardar(self):
+        """
+        Guarda los datos del técnico ingresados en el formulario.
+
+        Realiza validaciones básicas y registra el técnico en el sistema.
+        Muestra mensajes de éxito o error según el resultado.
+        """
         try:
             # Obtener valores del formulario
             id_tecnico = self._id_aleatorio()
@@ -76,4 +99,9 @@ class TecnicoForm:
             messagebox.showerror("Error", f"No se pudo registrar el técnico: {e}")
 
     def _id_aleatorio(self):
+        """
+        Genera un ID aleatorio para el técnico.
+
+        :return: ID aleatorio como cadena.
+        """
         return str(randint(100000, 999999))

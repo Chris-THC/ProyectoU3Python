@@ -9,14 +9,6 @@
             "ubicacion_id": "1"
         },
         {
-            "nombre": "Torno CNC",
-            "fecha_instalacion": "2024-06-10T00:00:00",
-            "horas_uso": 850,
-            "horas_mantenimiento": 50,
-            "id": "T01",
-            "ubicacion_id": "2"
-        },
-        {
             "nombre": "Caldera Industrial",
             "fecha_instalacion": "2022-11-01T00:00:00",
             "horas_uso": 5000,
@@ -25,11 +17,19 @@
             "ubicacion_id": "3"
         },
         {
-            "nombre": "Sistema de Bombeo",
-            "fecha_instalacion": "2025-01-20T00:00:00",
-            "horas_uso": 300,
+            "nombre": "Test",
+            "fecha_instalacion": "2025-04-27T00:00:00",
+            "horas_uso": 30,
             "horas_mantenimiento": 20,
-            "id": "SB01",
+            "id": "538932",
+            "ubicacion_id": "1"
+        },
+        {
+            "nombre": "test2",
+            "fecha_instalacion": "2025-05-03T00:00:00",
+            "horas_uso": 0,
+            "horas_mantenimiento": 100,
+            "id": "622964",
             "ubicacion_id": "4"
         }
     ],
@@ -39,12 +39,6 @@
             "especialidad": "Mec\u00e1nica Industrial",
             "activo": true,
             "id": "T001"
-        },
-        {
-            "nombre": "Ana L\u00f3pez",
-            "especialidad": "Electromec\u00e1nica",
-            "activo": false,
-            "id": "T002"
         },
         {
             "nombre": "Mar\u00eda Fern\u00e1ndez",
@@ -57,30 +51,58 @@
             "especialidad": "Mecanico",
             "activo": true,
             "id": "564567"
+        },
+        {
+            "nombre": "Jose Perez",
+            "especialidad": "Sistemas",
+            "activo": true,
+            "id": "319863"
         }
     ],
     "tareas": [
         {
-            "id": "TAR-1745629044.168582",
+            "id": "TAR-1745769526.312432",
             "tipo": "CORRECTIVO",
-            "fecha_programada": "2025-04-25T18:57:24.168582",
+            "fecha_programada": "2025-04-27T09:58:46.312432",
             "estado": "PENDIENTE",
-            "observaciones": "Mantenimiento Correctivo",
-            "fecha_realizacion": "2025-04-25T18:57:24.168582",
+            "observaciones": "uinaa nana",
+            "fecha_realizacion": "2025-04-27T09:58:46.312432",
             "duracion_minutos": null,
             "equipo_id": "C01",
             "tecnico_id": "T001"
         },
         {
-            "id": "TAR-1745629509.463878",
+            "id": "TAR-1745769689.642805",
             "tipo": "PREVENTIVO",
-            "fecha_programada": "2025-05-02T00:00:00",
-            "estado": "PENDIENTE",
+            "fecha_programada": "2025-05-04T00:00:00",
+            "estado": "COMPLETADA",
             "observaciones": "",
             "fecha_realizacion": null,
             "duracion_minutos": null,
             "equipo_id": "C01",
             "tecnico_id": "T001"
+        },
+        {
+            "id": "TAR-1745769708.780762",
+            "tipo": "PREVENTIVO",
+            "fecha_programada": "2025-05-04T00:00:00",
+            "estado": "PENDIENTE",
+            "observaciones": "",
+            "fecha_realizacion": null,
+            "duracion_minutos": null,
+            "equipo_id": "CA01",
+            "tecnico_id": "564567"
+        },
+        {
+            "id": "TAR-1746289047.733841",
+            "tipo": "CORRECTIVO",
+            "fecha_programada": "2025-05-03T10:17:27.733841",
+            "estado": "PENDIENTE",
+            "observaciones": "Fallas en la herramienta test2",
+            "fecha_realizacion": "2025-05-03T10:17:27.733841",
+            "duracion_minutos": null,
+            "equipo_id": "622964",
+            "tecnico_id": "T004"
         }
     ],
     "ubicaciones": [
@@ -103,6 +125,11 @@
             "id": "4",
             "nombre": "Estaci\u00f3n de Bombeo",
             "descripcion": "Lugar destinado para el monitoreo y mantenimiento de bombas industriales."
+        },
+        {
+            "id": "003",
+            "nombre": "Test ubicacion",
+            "descripcion": "Este es un test"
         }
     ]
 }

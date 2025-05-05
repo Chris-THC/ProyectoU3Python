@@ -2,16 +2,35 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-from modelo.entidades import SistemaMantenimiento, Ubicacion, Equipo, Tecnico, TareaMantenimiento, TipoMantenimiento, \
-    EstadoTarea
+from modelo.Entidades.Equipo import Equipo
+from modelo.Entidades.EstadoTarea import EstadoTarea
+from modelo.Entidades.TareaMantenimiento import TareaMantenimiento
+from modelo.Entidades.Tecnico import Tecnico
+from modelo.Entidades.TipoMantenimiento import TipoMantenimiento
+from modelo.Entidades.Ubicacion import Ubicacion
+from modelo.SistemaMantenimiento import SistemaMantenimiento
 
 
 class PersistenciaJSON:
+    """
+    Clase para manejar la persistencia de datos del sistema de mantenimiento en formato JSON.
+    """
+
     def __init__(self, archivo: str = "datos/mantenimiento.json"):
+        """
+        Inicializa la clase PersistenciaJSON.
+
+        :param archivo: Ruta del archivo JSON donde se almacenarán los datos.
+        """
         self.archivo = Path(archivo)
         self.archivo.parent.mkdir(exist_ok=True)
 
     def guardar(self, sistema: SistemaMantenimiento):
+        """
+        Guarda los datos del sistema de mantenimiento en un archivo JSON.
+
+        :param sistema: Instancia del sistema de mantenimiento a guardar.
+        """
         datos = {
             "equipos": [self._equipo_a_dict(e) for e in sistema.equipos],
             "tecnicos": [self._tecnico_a_dict(t) for t in sistema.tecnicos],
@@ -23,6 +42,11 @@ class PersistenciaJSON:
             json.dump(datos, f, indent=4, default=self._serializar_fecha)
 
     def cargar(self) -> SistemaMantenimiento:
+        """
+        Carga los datos del sistema de mantenimiento desde un archivo JSON.
+
+        :return: Instancia del sistema de mantenimiento con los datos cargados.
+        """
         if not self.archivo.exists():
             return SistemaMantenimiento()
 
@@ -95,11 +119,24 @@ class PersistenciaJSON:
         return sistema
 
     def _serializar_fecha(self, obj):
+        """
+        Serializa un objeto datetime a formato ISO 8601.
+
+        :param obj: Objeto a serializar.
+        :return: Representación en formato ISO 8601.
+        :raises TypeError: Si el objeto no es serializable.
+        """
         if isinstance(obj, datetime):
             return obj.isoformat()
         raise TypeError(f"Tipo {type(obj)} no serializable")
 
     def _equipo_a_dict(self, equipo: Equipo) -> dict:
+        """
+        Convierte un objeto Equipo a un diccionario serializable.
+
+        :param equipo: Objeto Equipo a convertir.
+        :return: Diccionario con los datos del equipo.
+        """
         d = equipo.__dict__.copy()
         d['id'] = d.pop('_id')  # Cambiar _id a id
         d['ubicacion_id'] = d['ubicacion'].id
@@ -107,11 +144,23 @@ class PersistenciaJSON:
         return d
 
     def _tecnico_a_dict(self, tecnico: Tecnico) -> dict:
+        """
+        Convierte un objeto Tecnico a un diccionario serializable.
+
+        :param tecnico: Objeto Tecnico a convertir.
+        :return: Diccionario con los datos del técnico.
+        """
         d = tecnico.__dict__.copy()
         d['id'] = d.pop('_id')  # Cambiar _id a id
         return d
 
     def _tarea_a_dict(self, tarea: TareaMantenimiento) -> dict:
+        """
+        Convierte un objeto TareaMantenimiento a un diccionario serializable.
+
+        :param tarea: Objeto TareaMantenimiento a convertir.
+        :return: Diccionario con los datos de la tarea.
+        """
         d = tarea.__dict__.copy()
         d['tipo'] = d['tipo'].name
         d['estado'] = d['estado'].name
@@ -122,4 +171,10 @@ class PersistenciaJSON:
         return d
 
     def _ubicacion_a_dict(self, ubicacion: Ubicacion) -> dict:
+        """
+        Convierte un objeto Ubicacion a un diccionario serializable.
+
+        :param ubicacion: Objeto Ubicacion a convertir.
+        :return: Diccionario con los datos de la ubicación.
+        """
         return ubicacion.__dict__.copy()
