@@ -17,7 +17,7 @@
             "ubicacion_id": "3"
         },
         {
-            "nombre": "Test",
+            "nombre": "Herramienta de Corte",
             "fecha_instalacion": "2025-04-27T00:00:00",
             "horas_uso": 30,
             "horas_mantenimiento": 20,
@@ -25,7 +25,7 @@
             "ubicacion_id": "1"
         },
         {
-            "nombre": "test2",
+            "nombre": "Herramienta de Soldadura",
             "fecha_instalacion": "2025-05-03T00:00:00",
             "horas_uso": 0,
             "horas_mantenimiento": 100,
@@ -57,6 +57,12 @@
             "especialidad": "Sistemas",
             "activo": true,
             "id": "319863"
+        },
+        {
+            "nombre": "Jose Jose Perez",
+            "especialidad": "Sistemas",
+            "activo": true,
+            "id": "729742"
         }
     ],
     "tareas": [
